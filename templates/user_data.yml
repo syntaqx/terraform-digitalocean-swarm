@@ -1,0 +1,54 @@
+#cloud-config
+
+groups:
+  - docker: []
+
+# Add users to the system. Users are added after groups are added.
+users:
+  - default
+  - name: ubuntu
+    groups: users, admin, sudo, docker
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    # ssh_authorized_keys:
+    #   - <ssh pub key 1>
+    #   - <ssh pub key 2>
+
+packages:
+  - unattended-upgrades
+
+package_update: true
+package_upgrade: false # @TODO: true
+package_reboot_if_required: false
+
+write_files:
+- path: /etc/docker/daemon.json
+  content: |
+    {
+      "iptables": false
+    }
+
+- path: /etc/systemd/system/docker.service.d/10-dockerd.conf
+  permissions: '0644'
+  owner: root
+  content: |
+    [Service]
+    ExecStart=
+    ExecStart=/usr/bin/dockerd -H fd:// -H unix:///var/run/docker.sock
+
+runcmd:
+  # Remove One-Click templates
+  - rm -rf /etc/update-motd.d/99-one-click
+
+  # Remove slow "Processing triggers for man-db..." going forward
+  - apt-get -qqy remove --purge man-db
+
+  # Remove local firewalls in favor of cloud firewalls
+  # - apt-get -qqy purge ufw
+  - ufw disable
+  - iptables  -I INPUT -j ACCEPT
+
+  # Reload docker with cloud-config configurations
+  - systemctl daemon-reload
+  - systemctl enable docker.service
+  - systemctl -f restart docker

@@ -1,0 +1,27 @@
+# gitignore - Specifies intentionally untracked files and folders to ignore.
+# https://git-scm.com/docs/gitignore
+
+# prototyping directories
+._*
+
+# Runtime artifacts
+pids
+*.pid
+*.seed
+*.pid.lock
+*.log
+
+# Terraform
+# https://github.com/github/gitignore/blob/master/Terraform.gitignore
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+*tfplan*
+
+# Tokens & Secrets
+.env
+tokenfile
