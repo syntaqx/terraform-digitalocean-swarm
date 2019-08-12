@@ -14,11 +14,11 @@ resource "random_string" "prefix" {
 }
 
 resource "local_file" "swarm_private_key" {
-  filename          = format("/tmp/%s-%s", path.module, random_string.prefix.result, var.cluster_name)
+  filename          = format("%s/%s-%s", var.output_dir, random_string.prefix.result, var.cluster_name)
   sensitive_content = tls_private_key.generated.private_key_pem
 }
 
 resource "local_file" "swarm_public_key" {
-  filename          = format("/tmp/%s-%s.pub", path.module, random_string.prefix.result, var.cluster_name)
+  filename          = format("%s/%s-%s.pub", var.output_dir, random_string.prefix.result, var.cluster_name)
   sensitive_content = tls_private_key.generated.public_key_openssh
 }

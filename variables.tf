@@ -63,3 +63,9 @@ variable "manager_instance_size" {
 #   type = string
 #   default = "standard"
 # }
+
+variable "output_dir" {
+  description = "File output parent directory"
+  type        = string
+  default     = "/tmp"
+}
