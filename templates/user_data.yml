@@ -1,4 +1,5 @@
 #cloud-config
+# vim: syntax=yaml
 
 groups:
   - docker: []
@@ -15,6 +16,11 @@ users:
     #   - <ssh pub key 2>
 
 packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
   - unattended-upgrades
 
 package_update: true
