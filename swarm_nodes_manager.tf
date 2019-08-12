@@ -1,5 +1,5 @@
 locals {
-  manager_count = min(max(var.manager_count, 1), 9)
+  manager_count = min(max(var.manager_count, 1), 9) - 1
   manager_size  = var.manager_size
 }
 
