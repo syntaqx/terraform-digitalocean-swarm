@@ -3,6 +3,8 @@ jobs:
   validate_terraform:
     docker:
       - image: hashicorp/terraform:light
+    environment:
+      DIGITALOCEAN_TOKEN: "undefined"
     steps:
       - checkout
       - run: terraform init
