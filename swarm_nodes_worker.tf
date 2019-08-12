@@ -1,6 +1,6 @@
 locals {
-  worker_count = var.cluster_size
-  worker_size  = var.instance_size
+  worker_count = min(max(var.worker_count, 0), 1000)
+  worker_size  = var.worker_size
 }
 
 resource "digitalocean_droplet" "worker" {

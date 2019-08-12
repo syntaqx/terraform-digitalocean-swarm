@@ -1,6 +1,6 @@
 locals {
-  manager_count = var.manager_size - 1
-  manager_size  = var.manager_instance_size
+  manager_count = min(max(var.manager_count, 1), 9)
+  manager_size  = var.manager_size
 }
 
 resource "digitalocean_droplet" "manager" {

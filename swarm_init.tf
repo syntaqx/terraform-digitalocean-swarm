@@ -27,8 +27,8 @@ resource "digitalocean_droplet" "leader" {
   user_data = data.template_cloudinit_config.docker.rendered
 
   private_networking = true
-  monitoring         = false # @TODO: true
-  backups            = false # @TODO: true
+  monitoring         = var.enable_monitoring
+  backups            = var.enable_backups
 
   connection {
     agent       = false
