@@ -70,6 +70,18 @@ variable "manager_instance_size" {
 #   default = "standard"
 # }
 
+variable "enable_monitoring" {
+  description = "Boolean controlling whether monitoring agent is installed"
+  type        = bool
+  default     = true
+}
+
+variable "enable_backups" {
+  description = "Boolean controlling whether manager backups are enabled"
+  type        = bool
+  default     = true
+}
+
 variable "output_dir" {
   description = "File output parent directory"
   type        = string
