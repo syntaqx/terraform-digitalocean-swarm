@@ -9,7 +9,8 @@ resource "digitalocean_droplet" "worker" {
   region    = var.region
   image     = data.digitalocean_image.docker.id
   size      = local.worker_size
-  ssh_keys  = [digitalocean_ssh_key.swarm.id]
+  tags      = var.tags
+  ssh_keys  = concat([digitalocean_ssh_key.swarm.id], var.ssh_keys)
   user_data = data.template_cloudinit_config.docker.rendered
 
   private_networking = true

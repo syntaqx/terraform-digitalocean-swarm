@@ -9,6 +9,12 @@ variable "region" {
   default     = "nyc3"
 }
 
+variable "tags" {
+  description = "A list of the tags to be applied to cluster resources"
+  type        = list(any)
+  default     = []
+}
+
 variable "ssh_keys" {
   description = "A list of SSH IDs or fingerprints to enable for resources"
   type        = list(any)
