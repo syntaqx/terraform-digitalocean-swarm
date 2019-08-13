@@ -74,6 +74,10 @@ locals {
 }
 
 resource "null_resource" "swarm_init" {
+  triggers = {
+    leader_id = local.leader.id
+  }
+
   connection {
     agent       = false
     timeout     = "2m"
@@ -104,6 +108,10 @@ data "external" "tokens" {
 }
 
 resource "null_resource" "swarm_join_manager" {
+  triggers = {
+    manager_ids = join(",", module.manager.nodes[*].id)
+  }
+
   count = local.manager_count_odd
 
   connection {
@@ -127,6 +135,10 @@ resource "null_resource" "swarm_join_manager" {
 }
 
 resource "null_resource" "swarm_join_worker" {
+  triggers = {
+    worker_ids = join(",", module.worker.nodes[*].id)
+  }
+
   count = local.worker_count
 
   connection {
