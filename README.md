@@ -9,6 +9,12 @@ Terraform module to provision a Docker Swarm cluster.
 > production ready. Please do not use the `v0.0.*` pre-releases outside of a
 > testing context.
 
+## TODO
+
+- [ ] Support `EnableSystemPrune` variable
+- [ ] Allow for SSH to be provided instead of always generated
+- [ ] Default for packer base image
+
 ## License
 
 [MIT]: https://opensource.org/licenses/MIT
