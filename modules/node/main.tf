@@ -22,7 +22,7 @@ data "template_cloudinit_config" "docker" {
 
 resource "digitalocean_droplet" "node" {
   count     = var.node_count
-  name      = format("%s-%s-%02d", var.name, local.node_type, count.index + var.node_count_start)
+  name      = format("%s-%s-%s-%02d", var.name, var.region, local.node_type, count.index + var.node_count_start)
   region    = var.region
   image     = data.digitalocean_image.docker.id
   size      = var.size
