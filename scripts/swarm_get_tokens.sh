@@ -36,7 +36,7 @@ get_token() {
 }
 
 manager_token="$(get_token manager)"
-worker_token="$(get_token manager)"
+worker_token="$(get_token worker)"
 
 if [ -z "$manager_token" ] || [ -z "$worker_token" ]; then
   echo "ERROR: Unable to resolve tokens"

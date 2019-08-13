@@ -103,7 +103,7 @@ data "external" "tokens" {
   ]
 }
 
-resource "null_resource" "swarm_node" {
+resource "null_resource" "swarm_join_manager" {
   count = local.manager_count_odd
 
   connection {
@@ -118,7 +118,7 @@ resource "null_resource" "swarm_node" {
     inline = [
       format(
         "docker swarm join --advertise-addr %s --token %s %s",
-        module.manager.nodes[count.index].ipv4_address,
+        module.manager.nodes[count.index].ipv4_address_private,
         data.external.tokens.result.manager,
         local.leader.ipv4_address_private,
       )
@@ -141,7 +141,7 @@ resource "null_resource" "swarm_join_worker" {
     inline = [
       format(
         "docker swarm join --advertise-addr %s --token %s %s",
-        module.worker.nodes[count.index].ipv4_address,
+        module.worker.nodes[count.index].ipv4_address_private,
         data.external.tokens.result.worker,
         local.leader.ipv4_address_private,
       )
