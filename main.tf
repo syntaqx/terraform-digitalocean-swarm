@@ -8,7 +8,7 @@ locals {
 }
 
 module "leader" {
-  source = "./modules/terraform-digitalocean-swarm-node"
+  source = "./modules/node"
 
   name       = var.cluster_name
   region     = var.region
@@ -28,7 +28,7 @@ module "leader" {
 }
 
 module "manager" {
-  source = "./modules/terraform-digitalocean-swarm-node"
+  source = "./modules/node"
 
   node_count       = local.manager_count_odd
   node_count_start = 2
@@ -50,7 +50,7 @@ module "manager" {
 }
 
 module "worker" {
-  source = "./modules/terraform-digitalocean-swarm-node"
+  source = "./modules/node"
 
   node_type  = "worker"
   node_count = local.worker_count
@@ -103,7 +103,7 @@ data "external" "tokens" {
   ]
 }
 
-resource "null_resource" "swarm_join_manager" {
+resource "null_resource" "swarm_node" {
   count = length(module.manager.nodes)
 
   connection {
