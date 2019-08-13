@@ -88,7 +88,7 @@ resource "null_resource" "swarm_init" {
 
   provisioner "remote-exec" {
     inline = [
-      "docker swarm init --advertise-addr ${local.leader.ipv4_address_private}",
+      "docker swarm init --advertise-addr ${local.leader.ipv4_address_private} || true",
     ]
   }
 }
@@ -125,7 +125,7 @@ resource "null_resource" "swarm_join_manager" {
   provisioner "remote-exec" {
     inline = [
       format(
-        "docker swarm join --advertise-addr %s --token %s %s",
+        "docker swarm join --advertise-addr %s --token %s %s || true",
         module.manager.nodes[count.index].ipv4_address_private,
         data.external.tokens.result.manager,
         local.leader.ipv4_address_private,
@@ -152,7 +152,7 @@ resource "null_resource" "swarm_join_worker" {
   provisioner "remote-exec" {
     inline = [
       format(
-        "docker swarm join --advertise-addr %s --token %s %s",
+        "docker swarm join --advertise-addr %s --token %s %s || true",
         module.worker.nodes[count.index].ipv4_address_private,
         data.external.tokens.result.worker,
         local.leader.ipv4_address_private,
