@@ -104,7 +104,7 @@ data "external" "tokens" {
 }
 
 resource "null_resource" "swarm_node" {
-  count = length(module.manager.nodes)
+  count = local.manager_count_odd
 
   connection {
     agent       = false
@@ -127,7 +127,7 @@ resource "null_resource" "swarm_node" {
 }
 
 resource "null_resource" "swarm_join_worker" {
-  count = length(module.worker.nodes)
+  count = local.worker_count
 
   connection {
     agent       = false
