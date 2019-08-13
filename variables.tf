@@ -67,5 +67,5 @@ variable "enable_backups" {
 variable "output_dir" {
   description = "File output parent directory"
   type        = string
-  default     = "/tmp"
+  default     = "./tmp" # /tmp seems broken?
 }
