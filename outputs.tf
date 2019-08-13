@@ -1,5 +1,5 @@
 output "leader" {
-  value = digitalocean_droplet.leader
+  value = module.leader.nodes[0]
 }
 
 output "tokens" {
@@ -10,9 +10,9 @@ output "tokens" {
 }
 
 output "managers" {
-  value = digitalocean_droplet.manager
+  value = module.manager.nodes
 }
 
 output "workers" {
-  value = digitalocean_droplet.worker
+  value = module.worker.nodes
 }
