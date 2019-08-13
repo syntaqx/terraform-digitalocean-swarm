@@ -1,11 +1,12 @@
 locals {
-  manager_count = min(max(var.manager_count, 1), 9) - 1
-  manager_size  = var.manager_size
+  manager_count     = min(max(var.manager_count, 1), 9) - 1
+  manager_count_odd = max(local.manager_count % 2 == 0 ? local.manager_count : local.manager_count - 1, 0)
+  manager_size      = var.manager_size
 }
 
 resource "digitalocean_droplet" "manager" {
-  count     = local.manager_count
-  name      = format("manager-%d-%s", count.index + 2, var.cluster_name)
+  count     = local.manager_count_odd
+  name      = format("%s-manager-%d", var.cluster_name, count.index + 2)
   region    = var.region
   image     = data.digitalocean_image.docker.id
   size      = local.manager_size

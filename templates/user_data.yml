@@ -15,13 +15,14 @@ users:
     #   - <ssh pub key 1>
     #   - <ssh pub key 2>
 
-packages:
-  - apt-transport-https
-  - ca-certificates
-  - curl
-  - gnupg-agent
-  - software-properties-common
-  - unattended-upgrades
+# @TODO: Install packages from cloud-init. Currently relying on docker-18-04
+# packages:
+#   - apt-transport-https
+#   - ca-certificates
+#   - curl
+#   - gnupg-agent
+#   - software-properties-common
+#   - unattended-upgrades
 
 package_update: true
 package_upgrade: true
@@ -40,7 +41,7 @@ write_files:
   content: |
     [Service]
     ExecStart=
-    ExecStart=/usr/bin/dockerd -H fd:// -H unix:///var/run/docker.sock
+    ExecStart=/usr/bin/dockerd -H fd:// -H unix:///var/run/docker.sock $DOCKER_OPTS
 
 runcmd:
   # Remove One-Click templates

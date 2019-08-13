@@ -1,5 +1,5 @@
 variable "cluster_name" {
-  description = "Define how the cluster resources should be named"
+  description = "Unique name of the cluster"
   type        = string
 }
 
@@ -35,7 +35,7 @@ variable "worker_size" {
 
 # https://docs.docker.com/engine/swarm/admin_guide/#add-manager-nodes-for-fault-tolerance
 variable "manager_count" {
-  description = "Number of manager nodes in the Swarm (1, 3, 5, 7, 9)"
+  description = "Number of manager nodes in the Swarm (1, 3, 5, 7, 9), even numbers are rounded down"
   type        = number
   default     = 3
 }

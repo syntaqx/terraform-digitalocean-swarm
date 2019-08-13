@@ -5,7 +5,7 @@ locals {
 
 resource "digitalocean_droplet" "worker" {
   count     = local.worker_count
-  name      = format("worker-%02d-%s", count.index + 1, var.cluster_name)
+  name      = format("%s-worker-%02d", var.cluster_name, count.index + 1)
   region    = var.region
   image     = data.digitalocean_image.docker.id
   size      = local.worker_size
@@ -15,7 +15,6 @@ resource "digitalocean_droplet" "worker" {
 
   private_networking = true
   monitoring         = var.enable_monitoring # @TODO: true
-  backups            = var.enable_backups    # @TODO: true
 
   connection {
     agent       = false

@@ -18,7 +18,7 @@ data "template_cloudinit_config" "docker" {
 }
 
 resource "digitalocean_droplet" "leader" {
-  name      = format("manager-1-%s", var.cluster_name)
+  name      = format("%s-manager-1", var.cluster_name)
   region    = var.region
   image     = data.digitalocean_image.docker.id
   size      = local.manager_size
